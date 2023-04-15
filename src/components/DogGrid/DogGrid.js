@@ -82,7 +82,11 @@ function DogGrid() {
             <div className="container-list">
                 <h1>Rechazados</h1>
                 {rejectedDogs.map((dog, i) => {
-                    return <DogCard key={"rejected_" + i} name={dog.name} url={dog.url} undoFunc={() => undoDislike(i)}></DogCard>
+                    return (
+                            <div>
+                                <DogCard key={"rejected_" + i} name={dog.name} url={dog.url} undoFunc={() => undoDislike(i)}></DogCard>
+                            </div>
+                    )
                 })}
                 {/* {console.log(dogName)} */}
             </div>
