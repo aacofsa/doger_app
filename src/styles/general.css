@@ -40,6 +40,17 @@
     background-color: #B5B2B2;
 }
 
+::-webkit-scrollbar {
+    width: 10px;
+}
+
+/* ::-webkit-scrollbar-track {
+    background-color: #B5B2B2;
+  }
+  ::-webkit-scrollbar-thumb {
+    background-color: #3A3335;
+  } */
+
 @keyframes heartbeat {
     0% {
         transform: scale(1);
