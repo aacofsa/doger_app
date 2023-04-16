@@ -30,10 +30,10 @@ function DogGrid() {
         axios("https://dog.ceo/api/breeds/image/random").then(res => {
             setDogUrl(res.data.message);
             setDisableButton(false);
+            setDogName(createDogName());
         }, error => {
             console.error(error);
         });
-        setDogName(createDogName());
     }
 
     useEffect(() => {
@@ -43,6 +43,25 @@ function DogGrid() {
         createDog();
         imageLoaded.current = true;
     }, [])
+
+    useEffect(() => {
+        function handleKeyboardEvent(e) {
+            if (e.key === "ArrowRight") {
+                console.log("Accepted");
+                console.log(rejectDog)
+                // Arroja un undefined por que approveDog - rejectDog son asincronas.
+                approveDog();
+            } else if (e.key === "ArrowLeft") {
+                console.log("Rejected");
+                rejectDog();
+            }
+        }
+        document.addEventListener("keydown", handleKeyboardEvent);
+        return () => {
+            document.removeEventListener("keydown", handleKeyboardEvent);
+        };
+    }, []);
+
 
     const rejectDog = () => {
         // console.log("POR ESO, RECHAZO!");
@@ -83,9 +102,9 @@ function DogGrid() {
                 <h1>Rechazados</h1>
                 {rejectedDogs.map((dog, i) => {
                     return (
-                            <div>
-                                <DogCard key={"rejected_" + i} name={dog.name} url={dog.url} undoFunc={() => undoDislike(i)}></DogCard>
-                            </div>
+                        <div>
+                            <DogCard key={"rejected_" + i} name={dog.name} url={dog.url} undoFunc={() => undoDislike(i)}></DogCard>
+                        </div>
                     )
                 })}
                 {/* {console.log(dogName)} */}
